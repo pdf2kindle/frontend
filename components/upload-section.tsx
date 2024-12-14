@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { API_ENDPOINTS } from "@/lib/constants";
 import { convertToBase64 } from "@/lib/file-utils";
+import { isKindleEmail } from "@/lib/utils";
 
 export function UploadSection() {
   const [files, setFiles] = useState<File[]>([]);
@@ -21,6 +22,14 @@ export function UploadSection() {
       toast({
         title: "Email required",
         description: "Please enter your Kindle email address",
+        variant: "destructive",
+      });
+      return;
+    }
+    if(!isKindleEmail(email)) {
+      toast({
+        title: "Invalid email",
+        description: "Please enter a valid Kindle email address",
         variant: "destructive",
       });
       return;
