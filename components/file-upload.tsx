@@ -16,8 +16,8 @@ export function FileUpload({ files, onFilesChange }: FileUploadProps) {
 
   const handleDrop = useCallback((acceptedFiles: File[]) => {
     const validFiles = acceptedFiles.filter(file => {
-      const extension = `.${file.name.split('.').pop()?.toLowerCase()}`;
-      if (!(extension in FILE_CONSTRAINTS.ALLOWED_EXTENSIONS)) {
+      const extension = `.${file.name.split('.').pop()?.toLowerCase()}` as ".pdf" | ".epub" | ".mobi" | ".djvu" | ".pub";
+      if (!(FILE_CONSTRAINTS.ALLOWED_EXTENSIONS.includes(extension) || file.type in FILE_CONSTRAINTS.ALLOWED_EXTENSIONS)) {
         toast({
           title: "Invalid file type",
           description: `File ${file.name} is not supported. Allowed types: ${FILE_CONSTRAINTS.ALLOWED_EXTENSIONS.join(", ")}`,
