@@ -17,7 +17,7 @@ export function FileUpload({ files, onFilesChange }: FileUploadProps) {
   const handleDrop = useCallback((acceptedFiles: File[]) => {
     const validFiles = acceptedFiles.filter(file => {
       const extension = `.${file.name.split('.').pop()?.toLowerCase()}`;
-      if (!FILE_CONSTRAINTS.ALLOWED_EXTENSIONS.includes(extension)) {
+      if (!(extension in FILE_CONSTRAINTS.ALLOWED_EXTENSIONS)) {
         toast({
           title: "Invalid file type",
           description: `File ${file.name} is not supported. Allowed types: ${FILE_CONSTRAINTS.ALLOWED_EXTENSIONS.join(", ")}`,
